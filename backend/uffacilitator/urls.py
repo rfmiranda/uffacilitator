@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^home/$', TemplateView.as_view(template_name='exampleapp/itworks.html'), name='home'),
 
 
-    url(r'^$', TemplateView.as_view(template_name='exampleapp/itworks.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='login/index.html'), name='login'),
 ]
