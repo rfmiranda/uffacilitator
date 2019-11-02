@@ -27,8 +27,8 @@ MEDIA_URL = '/media/'
 SERVER_EMAIL = 'foo@example.com'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = config('apikey')
-EMAIL_HOST_PASSWORD = config('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')
+EMAIL_HOST_USER = config('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = config('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
