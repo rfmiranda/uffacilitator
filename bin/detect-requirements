@@ -1,0 +1,3 @@
+#!/home/rafael/Projetos/uffacilitator/bin/python3.7
+from requirements_detector.run import run
+run()
