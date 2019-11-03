@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
+
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -29,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   // const [showBugComponent, setShowBugComponent] = useState(false);
   const classes = useStyles();
+  
+  function redirect() {
+    window.location = '/home';
+  }
 
   return (
     <>
@@ -71,7 +77,8 @@ const Login = () => {
             variant="contained" 
             color="primary" 
             className={classes.button}
-            size="large">
+            size="large"
+            onClick={() => redirect() }>
             <b>Entrar</b>
           </Button>
         </style.Login>
@@ -80,4 +87,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = state => ({ navBarState: state });
+
+const mapDispatchToProps = dispatch => ({
+});
+
+
+export default connect(mapStateToProps)(Login);
