@@ -5,6 +5,9 @@ import '../sass/style.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
+import { Provider } from 'react-redux';
+
+import store from './store'
 
 import App from './App';
 
@@ -13,4 +16,7 @@ Sentry.init({
   release: window.COMMIT_SHA,
 });
 
-ReactDOM.render(<App />, document.getElementById('react-app'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('react-app'));

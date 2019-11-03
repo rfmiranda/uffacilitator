@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -30,26 +31,23 @@ const useStyles = makeStyles({
 
 function Menu({ menuState, toggleDrawer }) {
   const classes = useStyles();
-  // const toggleDrawer = (side, open) => event => {
-  //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-  //     return;
-  //   }
-
-  //   setState({ ...state, [side]: open });
-  // };
+  
+  function Redirect(to) {
+    window.location = to;
+  }
 
   const sideList = side => {
     const menuItem = [
-      'Disciplina', 
-      'Quadro de horários', 
-      'Grade curricular', 
-      'Sistemas',
-      'Repositório',
-      'Galeria',
-      'Fórum'
+      { nome: 'Disciplina', to: '/disciplina/' }, 
+      { nome: 'Quadro de horários', to: '/quadro-de-horarios/' } , 
+      { nome: 'Grade curricular', to: '/grade-curricular/' }, 
+      { nome: 'Sistemas', to: '/sistemas/' },
+      { nome: 'Repositório', to: '/repositorio/' },
+      { nome: 'Galeria', to: '/galeria/' },
+      { nome: 'Fórum', to: '/forum/' }
     ];
 
-    return (    
+        return (    
       <div
         className={classes.list}
         role="presentation"
@@ -66,10 +64,10 @@ function Menu({ menuState, toggleDrawer }) {
         </StyleComponents.DivPerfil>
         <Divider />
         <List>
-          {menuItem.map((text, index) => (
-            <ListItem button key={text}>
+          {menuItem.map((item, index) => (
+            <ListItem button key={item.nome} onClick={() => Redirect(item.to)}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.nome} />
             </ListItem>
           ))}
         </List>

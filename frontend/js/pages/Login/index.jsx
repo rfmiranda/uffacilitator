@@ -9,6 +9,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 
 import * as style from '../../app/login/style';
+import * as AuthActions from '../../store/actions/auth';
+import { Router, Redirect } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
-  // const [showBugComponent, setShowBugComponent] = useState(false);
+const Login = ({navBarState, Authenticate}) => {
   const classes = useStyles();
   
   function redirect() {
+    Authenticate(true);
     window.location = '/home';
   }
 
@@ -90,7 +93,9 @@ const Login = () => {
 const mapStateToProps = state => ({ navBarState: state });
 
 const mapDispatchToProps = dispatch => ({
+  Authenticate: (status) => dispatch(AuthActions.auth(status))
+
 });
 
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
