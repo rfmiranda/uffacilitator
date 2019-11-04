@@ -1,4 +1,0 @@
-#!/home/rafael/Projetos/uffacilitator/bin/python3.7
-
-import dodgy.run
-dodgy.run.run()
