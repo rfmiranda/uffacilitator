@@ -12,36 +12,7 @@ function Disciplina() {
       {
         nome: 'Geometria Analítica'
       },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
-      {
-        nome: 'Geometria Analítica'
-      },
+      
     ],
   });
 

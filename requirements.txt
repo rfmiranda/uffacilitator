@@ -10,19 +10,20 @@ billiard==3.6.1.0         # via celery
 brotlipy==0.7.0
 celery[redis]==4.3.0
 certifi==2019.9.11        # via sentry-sdk
-cffi==1.13.1              # via brotlipy
+cffi==1.13.2              # via brotlipy
 decorator==4.4.1          # via ipython, traitlets
 defusedxml==0.6.0         # via odfpy
 diff-match-patch==20181111  # via django-import-export
 dj-database-url==0.5.0
 django-import-export==1.2.0
 django-js-reverse==0.9.1
-django-log-request-id==1.3.2
+django-log-request-id==1.4.0
 django-model-utils==3.2.0
 django-webpack-loader==0.6.0
-django==2.2.6
+django==2.2.7
+djangorestframework==3.10.3
 et-xmlfile==1.0.1         # via openpyxl
-gunicorn==19.9.0
+gunicorn==20.0.0
 importlib-metadata==0.23  # via kombu
 ipython-genutils==0.2.0   # via traitlets
 ipython==7.9.0
@@ -37,7 +38,7 @@ parso==0.5.1              # via jedi
 pexpect==4.7.0            # via ipython
 pickleshare==0.7.5        # via ipython
 prompt-toolkit==2.0.10    # via ipython
-psutil==5.6.3
+psutil==5.6.5
 psycopg2==2.8.4
 ptyprocess==0.6.0         # via pexpect
 pycparser==2.19           # via cffi
@@ -46,8 +47,8 @@ python-decouple==3.1
 pytz==2019.3              # via celery, django
 pyyaml==5.1.2             # via tablib
 redis==3.3.11             # via celery
-sentry-sdk==0.13.1
-six==1.12.0               # via prompt-toolkit, traitlets
+sentry-sdk==0.13.2
+six==1.13.0               # via prompt-toolkit, traitlets
 sqlparse==0.3.0           # via django
 tablib==0.14.0            # via django-import-export
 traitlets==4.3.3          # via ipython
@@ -60,4 +61,4 @@ xlwt==1.3.0               # via tablib
 zipp==0.6.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==41.6.0        # via ipython
+# setuptools==41.6.0        # via gunicorn, ipython

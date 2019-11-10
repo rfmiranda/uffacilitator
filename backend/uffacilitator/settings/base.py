@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'common',
     'users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 # Sentry
 SENTRY_DSN = config('SENTRY_DSN', default='')
 COMMIT_SHA = config('HEROKU_SLUG_COMMIT', default='')
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
