@@ -8,6 +8,8 @@ from .managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
+    nome = models.CharField(max_length=255, null=True)
+    matricula = models.CharField(max_length=255, null=True)
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(
         default=False,
