@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import { History as history } from '../../../utils'
 
@@ -15,6 +15,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 
 import * as MenuActions from '../../../store/actions/menu';
 import * as StyleComponents from '../style';
+import Axios from 'axios';
 
 const useStyles = makeStyles({
   list: {
@@ -27,19 +28,36 @@ const useStyles = makeStyles({
 
 function Menu({ menuState, toggleDrawer, authState }) {
   const classes = useStyles();
+  const [curso, setCurso] = useState('');
   
   function Redirect(to) {
     history.push(to)
   }
 
+  function _getCurso(){
+    Axios.get('/api/cursos', 
+      { headers: { Authorization: `Token ${authState.credencial.token}` }} )
+      .then( response => {
+        const data = response.data       
+        
+        if(data.length > 0 ){
+          setCurso(data[0].nome) 
+        }            
+      });
+  }
+
+  useEffect(() => {
+    _getCurso();
+  }, []);
+
   const sideList = side => {
     const menuItem = [
       { nome: 'Disciplina', to: '/disciplina/' }, 
-      { nome: 'Quadro de horários', to: '/quadro-de-horarios/' } , 
-      { nome: 'Grade curricular', to: '/grade-curricular/' }, 
+      // { nome: 'Quadro de horários', to: '/quadro-de-horarios/' } , 
+      // { nome: 'Grade curricular', to: '/grade-curricular/' }, 
       { nome: 'Sistemas', to: '/sistemas/' },
       { nome: 'Repositório', to: '/repositorio/' },
-      { nome: 'Galeria', to: '/galeria/' },
+      // { nome: 'Galeria', to: '/galeria/' },
       { nome: 'Fórum', to: '/forum/' }
     ];
     
@@ -54,7 +72,7 @@ function Menu({ menuState, toggleDrawer, authState }) {
           <AccountBox style={{width: 80, height: 80}} />
           <StyleComponents.DivPerfilDetalhes>
             <span>{`${authState.credencial.nome}`}</span>
-            Engenharia Civil <br />
+            {curso} <br />
             {authState.credencial.email}
           </StyleComponents.DivPerfilDetalhes>
         </StyleComponents.DivPerfil>

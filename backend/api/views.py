@@ -29,6 +29,8 @@ class Repositorios(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return models.Repositorios.objects.filter(usuario=user.id)
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
 
 class Sistemas(ModelViewSet):
     serializer_class = serializers.SistemasSerializer
@@ -37,6 +39,8 @@ class Sistemas(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return models.Sistemas.objects.filter(usuario=user.id)
+    def perform_create(self, serializer):
+        serializer.save(usuario=self.request.user)
 
 class Grades(ModelViewSet):
     queryset = models.Grade_curricular.objects.all()

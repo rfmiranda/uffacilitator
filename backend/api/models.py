@@ -35,6 +35,8 @@ class Cursos(models.Model):
     duracao = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.nome
 
 class Repositorios(models.Model):
     usuario = models.ForeignKey(
@@ -46,6 +48,8 @@ class Repositorios(models.Model):
     favorito = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.url
 
 class Sistemas(models.Model):
     usuario = models.ForeignKey(

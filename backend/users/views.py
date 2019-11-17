@@ -12,8 +12,9 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
-
-
+from api.models import Cursos
+from api.serializers import CursosSerializer
+from django.core.serializers import serialize
 
 @csrf_exempt
 @api_view(["POST"])
@@ -44,8 +45,7 @@ def verify_token(request):
     token = Token.objects.get(key=token_data)
     if token is None :
         return Response({'error': 'Token error'},
-                        status=HTTP_400_BAD_REQUEST)
-
+                        status=HTTP_400_BAD_REQUEST)    
     return Response({'token': token.key, 'nome': token.user.nome, 'email': token.user.email},
                     status=HTTP_200_OK)
 
