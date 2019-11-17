@@ -14,7 +14,7 @@ export const DivPerfilDetalhes = styled.div`
   flex-direction: column;
   padding-top: 10px;
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 12px;
   color: #555;   
   span {
     font-weight: bold;

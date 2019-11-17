@@ -1,20 +1,61 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table';
+import Axios from 'axios';
 
-function Disciplina() {
-  const [state, setState] = React.useState({
+function Disciplina({rState}) {
+  const [state, setState] = useState({
     columns: [
-      { title: 'Nome', field: 'nome' },
+      // {title: 'Id', field: 'id', cellStyle:{ width: "1px"}},
+      {title: 'Nome', field: 'nome'},
     ],
-    data: [
-      { nome: 'Calculo 1A' },
-      {
-        nome: 'Geometria Analítica'
-      },
-      
-    ],
+    data: [],
   });
+
+  function _getDisciplinas() {    
+    Axios.get('/api/disciplinas', 
+      { headers: { Authorization: `Token ${rState.auth.credencial.token}` }} )
+      .then( response => {
+        const data = response.data        
+        setState(prevState => { 
+          return { ...prevState, data };
+        })     
+      });
+  }
+
+  function _createdDisciplinas(dados) {
+    Axios.post('/api/disciplinas/', dados,
+      { headers: { Authorization: `Token ${rState.auth.credencial.token}` }} )
+      .then( response => {
+        const data = response.data        
+        setState(prevState => { 
+          return { ...prevState, data };
+        })
+        _getDisciplinas();   
+      });
+  }
+
+  function _editDisciplinas(newData, oldData) {
+    // console.log("EDIT", newData, oldData);    
+    Axios.put(`/api/disciplinas/${newData.id}/`, newData,
+      { headers: { Authorization: `Token ${rState.auth.credencial.token}` }} )
+      .then( response => {
+        _getDisciplinas();   
+      });
+  }
+
+  function _deleteDisciplinas(dado) {
+    // console.log("DELETE", dado);   
+    Axios.delete(`/api/disciplinas/${dado.id}/`, 
+      { headers: { Authorization: `Token ${rState.auth.credencial.token}` }} )
+      .then( response => {
+        _getDisciplinas();   
+      });
+  }
+
+  useEffect(() => {
+    _getDisciplinas();
+  }, []);
 
   return (
     <MaterialTable
@@ -56,35 +97,21 @@ function Disciplina() {
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
+              _createdDisciplinas(newData);
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              if (oldData) {
-                setState(prevState => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
+              _editDisciplinas(newData, oldData);
             }, 600);
           }),
         onRowDelete: oldData =>
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              setState(prevState => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
+              _deleteDisciplinas(oldData);
             }, 600);
           }),
       }}

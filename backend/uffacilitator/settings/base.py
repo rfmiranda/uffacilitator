@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'common',
     'users',
     'rest_framework',
+    'rest_framework.authtoken',
     'api',
 ]
 
@@ -129,9 +130,15 @@ SENTRY_DSN = config('SENTRY_DSN', default='')
 COMMIT_SHA = config('HEROKU_SLUG_COMMIT', default='')
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ]
 }
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/home'

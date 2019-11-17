@@ -26,7 +26,7 @@ class Cursos(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE, null=True
     )
-    grade = models.OneToOneField(
+    grade = models.ForeignKey(
         Grade_curricular,
         on_delete=models.CASCADE, null=True
     )

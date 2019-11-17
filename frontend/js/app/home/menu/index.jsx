@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { History as history } from '../../../utils'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,8 +12,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountBox from '@material-ui/icons/AccountBox';
-
-import { consoleSandbox } from '@sentry/utils';
 
 import * as MenuActions from '../../../store/actions/menu';
 import * as StyleComponents from '../style';
@@ -27,13 +25,11 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-function Menu({ menuState, toggleDrawer }) {
+function Menu({ menuState, toggleDrawer, authState }) {
   const classes = useStyles();
   
   function Redirect(to) {
-    window.location = to;
+    history.push(to)
   }
 
   const sideList = side => {
@@ -46,8 +42,8 @@ function Menu({ menuState, toggleDrawer }) {
       { nome: 'Galeria', to: '/galeria/' },
       { nome: 'Fórum', to: '/forum/' }
     ];
-
-        return (    
+    
+  return (    
       <div
         className={classes.list}
         role="presentation"
@@ -57,9 +53,9 @@ function Menu({ menuState, toggleDrawer }) {
         <StyleComponents.DivPerfil>
           <AccountBox style={{width: 80, height: 80}} />
           <StyleComponents.DivPerfilDetalhes>
-            <span>João Pedro</span>
-            Engenharia Civil
-            joao@id.uff.br
+            <span>{`${authState.credencial.nome}`}</span>
+            Engenharia Civil <br />
+            {authState.credencial.email}
           </StyleComponents.DivPerfilDetalhes>
         </StyleComponents.DivPerfil>
         <Divider />
@@ -84,7 +80,7 @@ function Menu({ menuState, toggleDrawer }) {
   );
 }
 
-const mapStateToProps = ({ menu }) => ({ menuState: menu });
+const mapStateToProps = ({ menu, auth }) => ({ menuState: menu, authState: auth });
 
 const mapDispatchToProps = dispatch => ({
   toggleDrawer: (side, open) => dispatch(MenuActions.toggleDrawer(side, open ))

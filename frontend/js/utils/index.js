@@ -1,3 +1,4 @@
 import Urls from './urls';
+import History from './historyUtils'; 
 
-export { Urls }; // eslint-disable-line import/prefer-default-export
+export { Urls, History }; // eslint-disable-line import/prefer-default-export

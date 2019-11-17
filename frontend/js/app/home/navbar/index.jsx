@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { History as history } from '../../../utils'
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -41,6 +42,11 @@ const NavBar = ({ navBarState, toggleDrawer }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSair = () => {
+    localStorage.removeItem("token");
+    history.push("/");
   };
 
   return (
@@ -85,6 +91,7 @@ const NavBar = ({ navBarState, toggleDrawer }) => {
               >
                 <MenuItem onClick={handleClose}>Perfil</MenuItem>
                 <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
+                <MenuItem onClick={handleSair}>Sair</MenuItem>
               </Menu>
             </div>
         </Toolbar>
